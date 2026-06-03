@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlos Rodríguez · Liderazgo con Propósito</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:     #1a1814;
+    --cream:   #f7f4ee;
+    --gold:    #c9a84c;
+    --gold2:   #e8c97a;
+    --teal:    #1d6e5a;
+    --teal2:   #2a9d7f;
+    --rust:    #8c3a1e;
+    --purple:  #3c3489;
+    --muted:   #6b6760;
+    --border:  #e0dbd0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,244,238,0.96);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 5vw; height: 58px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: .03em;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .82rem; font-weight: 500; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    padding: 100px 5vw 60px;
+    gap: 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 79px, var(--border) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, var(--border) 80px);
+    opacity: .35;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--teal); color: #fff;
+    font-size: .72rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; padding: 4px 14px; border-radius: 2px;
+    margin-bottom: 1.4rem;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 900; line-height: 1.08;
+    color: var(--ink); margin-bottom: 1rem;
+  }
+  .hero-name span { color: var(--teal); }
+  .hero-role {
+    font-size: .9rem; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1.8rem;
+  }
+  .hero-frase {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-style: italic;
+    color: var(--rust); line-height: 1.5;
+    border-left: 3px solid var(--gold);
+    padding-left: 1.2rem; margin-bottom: 2.4rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 11px 28px;
+    font-size: .82rem; font-weight: 500; letter-spacing: .07em;
+    text-transform: uppercase; text-decoration: none;
+    border-radius: 3px; transition: all .22s;
+  }
+  .btn-primary { background: var(--teal); color: #fff; }
+  .btn-primary:hover { background: var(--teal2); }
+  .btn-outline { border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  .hero-card {
+    position: relative; z-index: 1;
+    background: var(--ink); color: var(--cream);
+    border-radius: 6px; padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; gap: 1.4rem;
+  }
+  .hero-card-photo {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: var(--teal); display: flex; align-items: center;
+    justify-content: center; font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 900; color: #fff;
+    border: 3px solid var(--gold);
+  }
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.4rem;
+    color: var(--gold2);
+  }
+  .hero-stat { display: flex; align-items: baseline; gap: .5rem; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--gold);
+  }
+  .hero-stat-label { font-size: .82rem; color: #b0aca4; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .hero-divider { width: 40px; height: 2px; background: var(--gold); }
+
+  /* ── SECCIONES GENERALES ── */
+  section { padding: 90px 5vw; }
+  .section-label {
+    font-size: .72rem; font-weight: 500; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: .6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; line-height: 1.2;
+    color: var(--ink); margin-bottom: 1rem;
+  }
+  .section-intro {
+    font-size: 1rem; color: var(--muted);
+    max-width: 620px; margin-bottom: 3rem; line-height: 1.8;
+  }
+  .divider-line {
+    width: 48px; height: 3px;
+    background: var(--gold); margin-bottom: 2rem;
+  }
+
+  /* ── SECCIÓN VIA ── */
+  #via { background: var(--ink); }
+  #via .section-label { color: var(--gold2); }
+  #via .section-title { color: var(--cream); }
+  #via .section-intro { color: #b0aca4; }
+  #via .divider-line { background: var(--gold); }
+
+  .via-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .via-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 6px; padding: 1.6rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .via-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .via-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--gold); line-height: 1; margin-bottom: .4rem;
+  }
+  .via-name {
+    font-size: 1rem; font-weight: 500; color: var(--cream);
+    margin-bottom: .25rem;
+  }
+  .via-category {
+    font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold2); margin-bottom: .8rem;
+  }
+  .via-desc { font-size: .85rem; color: #9a9690; line-height: 1.6; }
+  .via-apply {
+    margin-top: .9rem; font-size: .82rem; color: var(--teal2);
+    font-style: italic;
+  }
+  .via-top-badge {
+    display: inline-block; background: var(--gold);
+    color: var(--ink); font-size: .65rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 2px; margin-bottom: .6rem;
+  }
+
+  /* ── SECCIÓN LIDERAZGO ── */
+  #liderazgo { background: #f0ece3; }
+  .lid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .lid-block {
+    border-top: 3px solid var(--teal);
+    padding-top: 1.4rem;
+  }
+  .lid-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--ink); margin-bottom: .8rem;
+  }
+  .lid-block p { font-size: .92rem; color: var(--muted); line-height: 1.8; }
+  .lid-quote {
+    grid-column: 1 / -1;
+    background: var(--teal); color: #fff;
+    border-radius: 6px; padding: 2.4rem 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-style: italic; line-height: 1.6;
+    position: relative;
+  }
+  .lid-quote::before {
+    content: '"';
+    position: absolute; top: 1rem; left: 2rem;
+    font-size: 5rem; color: rgba(255,255,255,.15);
+    font-family: 'Playfair Display', serif; line-height: 1;
+  }
+
+  /* ── SECCIÓN MISIÓN ── */
+  #mision {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: start; gap: 60px;
+  }
+  .mision-statement {
+    background: var(--rust); color: #fff;
+    border-radius: 6px; padding: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; line-height: 1.65; font-style: italic;
+  }
+  .mision-statement strong {
+    font-style: normal; color: var(--gold2); font-weight: 700;
+  }
+  .mision-pillars { display: flex; flex-direction: column; gap: 1.2rem; }
+  .pillar {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .pillar-num {
+    min-width: 36px; height: 36px;
+    background: var(--gold); color: var(--ink);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: .85rem;
+    font-family: 'Playfair Display', serif;
+  }
+  .pillar-text h4 {
+    font-size: .92rem; font-weight: 500; color: var(--ink);
+    margin-bottom: .2rem;
+  }
+  .pillar-text p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── GALERÍA DE VALORES ── */
+  #galeria { background: var(--ink); }
+  #galeria .section-label { color: var(--gold2); }
+  #galeria .section-title { color: var(--cream); }
+  #galeria .section-intro { color: #b0aca4; }
+  #galeria .divider-line { background: var(--gold); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1.2rem;
+  }
+  .gcard {
+    border-radius: 6px; padding: 2rem 1.6rem;
+    display: flex; flex-direction: column; gap: .8rem;
+    transition: transform .2s;
+  }
+  .gcard:hover { transform: translateY(-4px); }
+  .gcard-wide { grid-column: span 2; }
+  .gcard-icon {
+    font-size: 1.8rem; line-height: 1;
+  }
+  .gcard-frase {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-style: italic; line-height: 1.5;
+  }
+  .gcard-autor {
+    font-size: .75rem; letter-spacing: .1em;
+    text-transform: uppercase; opacity: .7;
+  }
+  .gcard-valor {
+    font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255,255,255,.2);
+    padding-top: .6rem; margin-top: .2rem;
+  }
+
+  .gc-teal   { background: var(--teal);   color: #e1f5ee; }
+  .gc-rust   { background: var(--rust);   color: #fce8de; }
+  .gc-gold   { background: #7a5c1e;       color: #faeeda; }
+  .gc-purple { background: var(--purple); color: #eeedfe; }
+  .gc-dark   { background: #2c2c2a;       color: #d3d1c7; border: 1px solid #444; }
+  .gc-mid    { background: #3b3830;       color: #d3d1c7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #111;
+    color: #888;
+    text-align: center;
+    padding: 2.5rem 5vw;
+    font-size: .82rem;
+  }
+  footer span { color: var(--gold); }
+
+  /* ── ANIMACIONES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp .7s ease both; }
+  .hero-content > *:nth-child(1) { animation-delay: .05s; }
+  .hero-content > *:nth-child(2) { animation-delay: .15s; }
+  .hero-content > *:nth-child(3) { animation-delay: .25s; }
+  .hero-content > *:nth-child(4) { animation-delay: .35s; }
+  .hero-content > *:nth-child(5) { animation-delay: .45s; }
+  .hero-card { animation: fadeUp .8s .3s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 780px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    #mision { grid-template-columns: 1fr; }
+    .lid-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gcard-wide { grid-column: span 1; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">Carlos Rodríguez</a>
+  <ul class="nav-links">
+    <li><a href="#via">Fortalezas VIA</a></li>
+    <li><a href="#liderazgo">Liderazgo</a></li>
+    <li><a href="#mision">Misión</a></li>
+    <li><a href="#galeria">Valores</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Ing. Manufactura Avanzada · Monterrey, NL</span>
+    <h1 class="hero-name">Carlos<br><span>Rodríguez</span></h1>
+    <p class="hero-role">Ingeniero · Líder en Formación · Agente de Cambio</p>
+    <blockquote class="hero-frase">
+      "El crecimiento como líder no empieza cuando estoy listo;<br>
+      empieza cuando decido actuar antes de estarlo."
+    </blockquote>
+    <div class="hero-btns">
+      <a href="#mision" class="btn btn-primary">Mi misión de vida</a>
+      <a href="#via" class="btn btn-outline">Ver mis fortalezas</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hero-card-photo" style="background:none;border:3px solid var(--gold);overflow:hidden;padding:0;">
+      <img src="data:image/png;base64,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" alt="Carlos Rodríguez" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+    </div>
+    <h3>Perfil en síntesis</h3>
+    <div class="hero-divider"></div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">#1</span>
+        <span class="hero-stat-label">Humor</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">#2</span>
+        <span class="hero-stat-label">Creatividad</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">#3</span>
+        <span class="hero-stat-label">Perspectiva</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">24</span>
+        <span class="hero-stat-label">Fortalezas VIA</span>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+    <p style="font-size:.82rem;color:#9a9690;line-height:1.6;">
+      Ingeniero de manufactura avanzada con vocación de liderazgo humano y técnico. Apasionado por la mejora continua, la automatización y el desarrollo de equipos.
+    </p>
+  </div>
+</section>
+
+<!-- VIA -->
+<section id="via">
+  <p class="section-label">Autoconocimiento · VIA Institute on Character</p>
+  <h2 class="section-title">Mis fortalezas de carácter</h2>
+  <div class="divider-line"></div>
+  <p class="section-intro">
+    El perfil VIA identifica 24 fortalezas universales de carácter. Estas son mis nueve principales y cómo las vivo dentro de la planta de manufactura.
+  </p>
+  <div class="via-grid">
+
+    <div class="via-card">
+      <span class="via-top-badge">Top 3</span>
+      <div class="via-rank">01</div>
+      <div class="via-name">Humor</div>
+      <div class="via-category">Trascendencia</div>
+      <div class="via-desc">Capacidad de ver el lado ligero de las situaciones y hacer que otros sonrían, incluso en momentos de alta presión en planta.</div>
+      <div class="via-apply">→ Alivia la tensión en turnos difíciles y construye ambiente positivo en el equipo.</div>
+    </div>
+
+    <div class="via-card">
+      <span class="via-top-badge">Top 3</span>
+      <div class="via-rank">02</div>
+      <div class="via-name">Creatividad</div>
+      <div class="via-category">Sabiduría</div>
+      <div class="via-desc">Pensar formas nuevas y productivas de abordar problemas técnicos y de proceso que otros no han considerado.</div>
+      <div class="via-apply">→ Proponer soluciones innovadoras ante cuellos de botella en la línea de producción.</div>
+    </div>
+
+    <div class="via-card">
+      <span class="via-top-badge">Top 3</span>
+      <div class="via-rank">03</div>
+      <div class="via-name">Perspectiva</div>
+      <div class="via-category">Sabiduría</div>
+      <div class="via-desc">Ver el panorama completo y dar consejo equilibrado a otros, conectando puntos que otros no conectan.</div>
+      <div class="via-apply">→ Mediar conflictos de proceso y tomar decisiones con visión sistémica de planta.</div>
+    </div>
+
+    <div class="via-card">
+      <div class="via-rank">04</div>
+      <div class="via-name">Apreciación de la belleza</div>
+      <div class="via-category">Trascendencia</div>
+      <div class="via-desc">Notar y valorar la excelencia en distintos dominios: un proceso limpio, seguro y eficiente es una obra de arte técnica.</div>
+      <div class="via-apply">→ Motivación intrínseca para hacer el trabajo bien hecho.</div>
+    </div>
+
+    <div class="via-card">
+      <div class="via-rank">05</div>
+      <div class="via-name">Amabilidad</div>
+      <div class="via-category">Humanidad</div>
+      <div class="via-desc">Hacer favores y apoyar a otros; tomar cuidado genuino de las personas del equipo sin esperar reconocimiento.</div>
+      <div class="via-apply">→ Apoyo a operadores con dificultades técnicas sin hacerlos sentir menos.</div>
+    </div>
+
+    <div class="via-card">
+      <div class="via-rank">06</div>
+      <div class="via-name">Curiosidad</div>
+      <div class="via-category">Sabiduría</div>
+      <div class="via-desc">Interés genuino por explorar temas nuevos: automatización, datos, Industria 4.0 y tecnologías emergentes.</div>
+      <div class="via-apply">→ Motor de aprendizaje continuo y actualización técnica constante.</div>
+    </div>
+
+    <div class="via-card">
+      <div class="via-rank">07</div>
+      <div class="via-name">Honestidad</div>
+      <div class="via-category">Valor</div>
+      <div class="via-desc">Presentar la realidad tal como es, sin pretensión; comunicar resultados reales aunque sean negativos.</div>
+      <div class="via-apply">→ Comunicación directa y transparente con dirección y equipo.</div>
+    </div>
+
+    <div class="via-card">
+      <div class="via-rank">08</div>
+      <div class="via-name">Amor</div>
+      <div class="via-category">Humanidad</div>
+      <div class="via-desc">Valorar las relaciones cercanas donde el cuidado es recíproco; crecer mejor en conexión con otros.</div>
+      <div class="via-apply">→ Construir confianza genuina con técnicos, supervisores y pares.</div>
+    </div>
+
+    <div class="via-card">
+      <div class="via-rank">09</div>
+      <div class="via-name">Amor por aprender</div>
+      <div class="via-category">Sabiduría</div>
+      <div class="via-desc">Dominar nuevas habilidades y áreas del conocimiento de forma sistemática; no solo curiosidad sino acumulación deliberada.</div>
+      <div class="via-apply">→ Reservar tiempo semanal de aprendizaje técnico y de liderazgo.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIDERAZGO -->
+<section id="liderazgo">
+  <p class="section-label">Reflexión · Visión y estilo de liderazgo</p>
+  <h2 class="section-title">Mi forma de liderar</h2>
+  <div class="divider-line"></div>
+  <p class="section-intro">
+    El liderazgo no es un título ni una posición. Es la suma de decisiones cotidianas sobre cómo me relaciono, comunico y actúo ante los desafíos.
+  </p>
+  <div class="lid-grid">
+
+    <div class="lid-block">
+      <h3>¿Cómo describo mi estilo?</h3>
+      <p>Mi estilo de liderazgo es creativo y orientado a las personas. No lidero desde la autoridad, sino desde la credibilidad técnica y la confianza que construyo con mi equipo. Me gusta entender el contexto antes de actuar, escuchar antes de proponer, y usar el humor como herramienta de conexión, no de distracción.</p>
+    </div>
+
+    <div class="lid-block">
+      <h3>¿Dónde quiero desarrollarme?</h3>
+      <p>Necesito fortalecer mi capacidad de presentar ideas ante dirección sin dejar que el miedo al juicio me paralice. También quiero desarrollar la habilidad de liderar cambios técnicos con mayor convicción, asumiendo que equivocarme es parte del proceso de aprender a decidir.</p>
+    </div>
+
+    <div class="lid-quote">
+      El ingeniero que quiero ser no es el que sabe todo, sino el que crea las condiciones para que su equipo dé lo mejor. Técnico por formación, humano por convicción.
+    </div>
+
+    <div class="lid-block">
+      <h3>Visión de liderazgo en manufactura</h3>
+      <p>En la planta, un líder efectivo no es solo el que apaga incendios más rápido. Es el que reduce la frecuencia de los incendios mejorando los sistemas. Mi visión es convertirme en un referente de mejora continua: alguien que propone, documenta y ejecuta cambios que hacen el trabajo más seguro, eficiente y significativo para todos.</p>
+    </div>
+
+    <div class="lid-block">
+      <h3>¿Qué impacto quiero dejar?</h3>
+      <p>Quiero que los técnicos con los que trabaje recuerden que hubo un ingeniero que los escuchó, que confió en su criterio y que los impulsó a crecer. El impacto más duradero de un líder no está en los indicadores de producción, sino en las personas que desarrolló en el camino.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- MISIÓN -->
+<section id="mision">
+  <div>
+    <p class="section-label">Propósito · Misión de vida</p>
+    <h2 class="section-title">Mi misión personal</h2>
+    <div class="divider-line"></div>
+    <p class="section-intro">
+      Una misión de vida no es un slogan. Es el filtro con el que tomo decisiones sobre dónde pongo mi energía, mi tiempo y mi talento.
+    </p>
+    <div class="mision-statement">
+      Ser un ingeniero que transforma procesos y personas con la misma pasión. <strong>Aportar soluciones creativas</strong> que mejoren la vida en la planta, <strong>liderar con honestidad y humor</strong>, y dejar en cada equipo una huella de confianza, aprendizaje y excelencia técnica.
+    </div>
+  </div>
+  <div>
+    <p class="section-label" style="margin-top:2rem;">¿Por qué esta misión?</p>
+    <div class="mision-pillars">
+      <div class="pillar">
+        <div class="pillar-num">1</div>
+        <div class="pillar-text">
+          <h4>Surge de mis fortalezas reales</h4>
+          <p>Creatividad, perspectiva y amor por el aprendizaje no son aspiraciones, son lo que ya soy. Mi misión las pone al servicio de algo más grande que yo mismo.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">2</div>
+        <div class="pillar-text">
+          <h4>Integra lo técnico y lo humano</h4>
+          <p>No quiero ser solo un buen ingeniero o solo un buen líder. Quiero que ambas dimensiones se refuercen mutuamente en cada proyecto que emprenda.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">3</div>
+        <div class="pillar-text">
+          <h4>Está orientada al impacto en personas</h4>
+          <p>Los procesos mejorados son medios; las personas desarrolladas son el fin. Eso reorienta cómo defino el éxito en mi rol como ingeniero.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">4</div>
+        <div class="pillar-text">
+          <h4>Me da criterio para decidir</h4>
+          <p>Cuando enfrento disyuntivas sobre dónde invertir mi energía, esta misión me dice qué sí y qué no, sin necesidad de inventar un argumento cada vez.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <p class="section-label">Valores · Galería personal</p>
+  <h2 class="section-title">Lo que me define</h2>
+  <div class="divider-line"></div>
+  <p class="section-intro">
+    Frases, principios y referencias que reflejan mis valores y la forma en que quiero vivir mi liderazgo.
+  </p>
+  <div class="gallery-grid">
+
+    <div class="gcard gc-teal gcard-wide">
+      <div class="gcard-icon">◈</div>
+      <div class="gcard-frase">"No te conviertes en lo que quieres; te conviertes en lo que haces de manera consistente."</div>
+      <div class="gcard-autor">— James Clear, Atomic Habits</div>
+      <div class="gcard-valor">Valor: Disciplina y crecimiento</div>
+    </div>
+
+    <div class="gcard gc-rust">
+      <div class="gcard-icon">◇</div>
+      <div class="gcard-frase">"La creatividad es la inteligencia divirtiéndose."</div>
+      <div class="gcard-autor">— Albert Einstein</div>
+      <div class="gcard-valor">Valor: Creatividad</div>
+    </div>
+
+    <div class="gcard gc-gold gcard-wide">
+      <div class="gcard-icon">✦</div>
+      <div class="gcard-frase">"El liderazgo no es sobre ser el mejor. Es sobre hacer mejor a los que te rodean."</div>
+      <div class="gcard-autor">— Principio de liderazgo de servicio</div>
+      <div class="gcard-valor">Valor: Liderazgo humano</div>
+    </div>
+
+    <div class="gcard gc-purple">
+      <div class="gcard-icon">◉</div>
+      <div class="gcard-frase">"La honestidad es el primer capítulo del libro de la sabiduría."</div>
+      <div class="gcard-autor">— Thomas Jefferson</div>
+      <div class="gcard-valor">Valor: Honestidad</div>
+    </div>
+
+    <div class="gcard gc-dark gcard-wide">
+      <div class="gcard-icon">▲</div>
+      <div class="gcard-frase">"En manufactura, el enemigo de la excelencia no es el error; es la conformidad con el error."</div>
+      <div class="gcard-autor">— Filosofía Kaizen</div>
+      <div class="gcard-valor">Valor: Mejora continua</div>
+    </div>
+
+    <div class="gcard gc-mid">
+      <div class="gcard-icon">◈</div>
+      <div class="gcard-frase">"Aprende como si fueras a vivir para siempre."</div>
+      <div class="gcard-autor">— Mahatma Gandhi</div>
+      <div class="gcard-valor">Valor: Love of Learning</div>
+    </div>
+
+    <div class="gcard gc-teal">
+      <div class="gcard-icon">◆</div>
+      <div class="gcard-frase">"El humor es la distancia más corta entre dos personas."</div>
+      <div class="gcard-autor">— Victor Borge</div>
+      <div class="gcard-valor">Valor: Humor y conexión</div>
+    </div>
+
+    <div class="gcard gc-rust gcard-wide">
+      <div class="gcard-icon">✦</div>
+      <div class="gcard-frase">"Mi propósito: transformar procesos y personas con la misma pasión. Técnico por formación, humano por convicción."</div>
+      <div class="gcard-autor">— Carlos Rodríguez, 2026</div>
+      <div class="gcard-valor">Valor: Misión personal</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Carlos Rodríguez · Ing. Manufactura Avanzada · Guadalupe, Nuevo León · 2026</p>
+  <p style="margin-top:.5rem;">Construido con <span>propósito</span> · Perfil VIA · Mayo 2026</p>
+</footer>
+
+</body>
+</html>
